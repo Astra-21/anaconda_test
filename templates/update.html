@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block  content%}
+    <h1>記事の更新</h1>
+    <form method ="POST">
+        <label for="title">タイトル</label>
+        <input type="text" name="update_title" id="title">
+
+        <label for="body">内容</label>
+        <input type="text" name="update_body" id="body">
+
+        <input type="submit" name="登録" value="更新">
+    
+    </form>
+    
+
+{% endblock %}

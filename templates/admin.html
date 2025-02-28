@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>管理ページ</h1>
+    <table border="1">
+        
+        <tr>
+            <th>ID</th>
+            <th>タイトル</th>
+            <th>本文</th>
+            <th>作成日時</th>
+            <th>操作</th>
+            <th>画像</th>
+        </tr>
+        {% for record in records %}
+        <tr>
+            <td>{{ record.id }}</td>
+            <td>{{ record.title }}</td>
+            <td>{{ record.body }}</td>
+            <td>{{ record.created_at }}</td>
+            <td>
+                <a href="{{ record.id }}/update"><button>編集</button></a>
+                <a href="{{ record.id }}/delete" onclick="return confirm('本当に削除しますか？');">
+                    <button>削除</button>
+                </a>
+            </td>
+            <td>{% if record.image %}
+                <img src="{{ url_for('static', filename='img/' + record.image) }}" width="100" height="100">
+            {% else %}
+                No Image
+            {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+
+    <h1>新規登録</h1>
+    <form method ="POST" action="/create" enctype="multipart/form-data">
+        <label for="title">タイトル</label>
+        <input type="text" name="title" id="title">
+
+        <label for="body">内容</label>
+        <input type="text" name="body" id="body">
+
+        <label for="image">画像アップロード</label>
+        <input type="file" name="image" id="image" onchange="displayFileName()">
+        <span id="file-name"></span>
+
+        <input type="submit" name="新規登録" value="登録">
+    
+    </form>
+
+    <script>
+        function displayFileName() {
+            const fileInput = document.getElementById('image');   //id='image'のデータを取得
+            const fileNameDisplay = document.getElementById('file-name');  //同じ型に見えるけど変数名違うから違う型
+            if (fileInput.files.length > 0) {
+                fileNameDisplay.textContent = fileInput.files[0].name;
+            } else {
+                fileNameDisplay.textContent = "選択されていません";
+            }
+        }
+    </script>
+{% endblock %}

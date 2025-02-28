@@ -1,0 +1,13 @@
+{% extends 'base.html'%}
+{% block content %}
+    {% for record in records %}
+        <tr>
+            <th>詳細情報</th>
+        </tr>
+        <tr>
+            <td>{{ record.created_at }}</td>
+        </tr>
+
+
+    {% endfor %}
+{% endblock %}
